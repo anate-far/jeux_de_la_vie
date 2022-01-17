@@ -85,6 +85,7 @@ void grid_check(grid* tab)
 	check_vertical(tab);
 	check_horizontal(tab);
 	check_diagonal(tab);
+	printf("tab : %d\n", tab->check_data[21]);
 	
 
 	for(i = 0; i < tab->size_tab_1D; i++)
