@@ -1,13 +1,23 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <SDL.h>
+#include <SDL_image.h>
 
 #include "tools.h"
 #include "grid.h"
 #include "ui.h"
 
-#define NB_CELL 100
-#define SIZE_WINDOW 1000
+#define NB_CELL 80
+#define SIZE_WINDOW_W 800
+#define SIZE_WINDOW_H 900
+#define SIZE_BUTTON_W 200
+#define SIZE_BUTTON_H 100
+#define POS_BUTTON_X 600
+#define POS_BUTTON_Y 800
+#define SIZE_RULES_W 600
+#define SIZE_RULES_H 100
+#define POS_RULES_X 0
+#define POS_RULES_Y 800
 #define DELAY 100 // milliseconde
 
 int main(void)
@@ -17,28 +27,26 @@ int main(void)
 	SDL_Window* window = NULL;
 	SDL_Renderer* renderer = NULL;
 	SDL_bool window_is_open = SDL_TRUE;
+	SDL_Surface* icon = IMG_Load("/home/anate/Documents/projetC/jeux_de_la_vie/src/img/coeur.ico");
 
-	
+
 	grid* tab = grid_create(NB_CELL, NB_CELL);
 
 	//génération aléatoire des cellue
 	srand(time(NULL));
-	int nb_create_cell = rand()%NB_CELL * NB_CELL;
-	int x_rendom, y_rendom;
-	for(int i = 0; i <= nb_create_cell; i++)
-	{
-		x_rendom = rand()%NB_CELL;
-		y_rendom = rand() % NB_CELL;	
-		grid_set(tab, x_rendom, y_rendom, 1);
-	}
+	generate_cell(tab, NB_CELL);
 	
 	//grid_set(tab, 4, 3, 1);
 	//grid_set(tab, 5, 3, 1);
 
 	SDL_Init(SDL_INIT_VIDEO);
 
-	if(SDL_CreateWindowAndRenderer(SIZE_WINDOW, SIZE_WINDOW,0, &window, &renderer) != 0)
+	if(SDL_CreateWindowAndRenderer(SIZE_WINDOW_W, SIZE_WINDOW_H,0, &window, &renderer) != 0)
 		fprintf(stderr, "Impossible de creer la fenetre et le rendu\n");
+
+
+	//mise en place de l'icone
+	SDL_SetWindowIcon(window, icon);
 	
 
 	while(window_is_open)
@@ -50,6 +58,18 @@ int main(void)
 			{
 				case SDL_QUIT:
 					window_is_open = SDL_FALSE;
+					break;
+
+				case SDL_MOUSEBUTTONDOWN:	
+					if((event.button.x <= 800) && (event.button.x >= 600))
+					{
+						if((event.button.y <= 900) && (event.button.y >= 800))
+						{
+							grid_init(tab, tab->data, 0);
+							SDL_RenderClear(renderer);
+							generate_cell(tab, NB_CELL);
+						}
+					}
 					break;
 				
 				case SDL_KEYDOWN:
@@ -75,7 +95,9 @@ int main(void)
 		
 		grid_check(tab);
 
-		display_cell(renderer, tab, DELAY);	
+		display_cell(renderer, tab, DELAY);
+		display_button(renderer, POS_BUTTON_X, POS_BUTTON_Y, SIZE_BUTTON_W, SIZE_BUTTON_H, "/home/anate/Documents/projetC/jeux_de_la_vie/src/img/button.jpeg");	
+		display_button(renderer, POS_RULES_X, POS_RULES_Y, SIZE_RULES_W, SIZE_RULES_H, "/home/anate/Documents/projetC/jeux_de_la_vie/src/img/rules.jpg");
 
 		SDL_RenderPresent(renderer);
 	}

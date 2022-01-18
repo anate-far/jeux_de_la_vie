@@ -11,8 +11,8 @@
 
 void display_cell(SDL_Renderer* renderer, grid* tab, int delay)
 {
-	SDL_Texture* cell_live_texture = create_texture(renderer, "img/life_cell.png");
-	SDL_Texture* cell_death_texture = create_texture(renderer, "img/death_cell.png");
+	SDL_Texture* cell_live_texture = create_texture(renderer, "/home/anate/Documents/projetC/jeux_de_la_vie/src/img/life_cell.png");
+	SDL_Texture* cell_death_texture = create_texture(renderer, "/home/anate/Documents/projetC/jeux_de_la_vie/src/img/death_cell.png");
 	SDL_Rect position = {0, 0, SIZE_CELL_W, SIZE_CELL_H};
 
 	int x = 0, y = 0;
@@ -58,4 +58,25 @@ SDL_Texture* create_texture(SDL_Renderer* renderer, char* name_img)
 	
 
 	return texture;
+}
+
+void display_button(SDL_Renderer* renderer,int pos_x, int pos_y,int w, int h, char* name_img)
+{
+	SDL_Texture*  button_texture = create_texture(renderer, name_img);
+	SDL_Rect pos_button = {pos_x, pos_y, w, h};
+
+	SDL_QueryTexture(button_texture, NULL, NULL, &pos_button.w, &pos_button.h);
+	SDL_RenderCopy(renderer, button_texture, NULL, &pos_button);
+}
+
+void generate_cell(grid* tab,int nb_cell)
+{
+	int nb_create_cell = rand()%nb_cell * nb_cell;
+	int x_rendom, y_rendom;
+	for(int i = 0; i <= nb_create_cell; i++)
+	{
+		x_rendom = rand()%nb_cell;
+		y_rendom = rand() % nb_cell;	
+		grid_set(tab, x_rendom, y_rendom, 1);
+	}
 }
