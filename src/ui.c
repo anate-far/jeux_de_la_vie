@@ -11,8 +11,8 @@
 
 void display_cell(SDL_Renderer* renderer, grid* tab, int delay)
 {
-	SDL_Texture* cell_live_texture = create_texture(renderer, "/home/anate/Documents/projetC/jeux_de_la_vie/src/img/life_cell.png");
-	SDL_Texture* cell_death_texture = create_texture(renderer, "/home/anate/Documents/projetC/jeux_de_la_vie/src/img/death_cell.png");
+	SDL_Texture* cell_live_texture = create_texture(renderer, "../src/img/life_cell.png");
+	SDL_Texture* cell_death_texture = create_texture(renderer, "../src/img/death_cell.png");
 	SDL_Rect position = {0, 0, SIZE_CELL_W, SIZE_CELL_H};
 
 	int x = 0, y = 0;

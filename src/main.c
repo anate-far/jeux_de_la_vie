@@ -27,7 +27,7 @@ int main(void)
 	SDL_Window* window = NULL;
 	SDL_Renderer* renderer = NULL;
 	SDL_bool window_is_open = SDL_TRUE;
-	SDL_Surface* icon = IMG_Load("/home/anate/Documents/projetC/jeux_de_la_vie/src/img/coeur.ico");
+	SDL_Surface* icon = IMG_Load("../img/coeur.ico");
 
 
 	grid* tab = grid_create(NB_CELL, NB_CELL);
@@ -96,8 +96,8 @@ int main(void)
 		grid_check(tab);
 
 		display_cell(renderer, tab, DELAY);
-		display_button(renderer, POS_BUTTON_X, POS_BUTTON_Y, SIZE_BUTTON_W, SIZE_BUTTON_H, "/home/anate/Documents/projetC/jeux_de_la_vie/src/img/button.jpeg");	
-		display_button(renderer, POS_RULES_X, POS_RULES_Y, SIZE_RULES_W, SIZE_RULES_H, "/home/anate/Documents/projetC/jeux_de_la_vie/src/img/rules.jpg");
+		display_button(renderer, POS_BUTTON_X, POS_BUTTON_Y, SIZE_BUTTON_W, SIZE_BUTTON_H, "../src/img/button.jpeg");	
+		display_button(renderer, POS_RULES_X, POS_RULES_Y, SIZE_RULES_W, SIZE_RULES_H, "../src/img/rules.jpg");
 
 		SDL_RenderPresent(renderer);
 	}
